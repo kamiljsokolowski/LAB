@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
       mgmt_config.vm.provider "virtualbox" do |vb|
          vb.memory = "256"
       end
-      #mgmt_config.vm.provision "shell", path: "mgmt_bootstrap.sh"
+      mgmt_config.vm.provision "shell", path: "mgmt_bootstrap.sh"
   end
 
   # web server

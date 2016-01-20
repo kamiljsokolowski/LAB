@@ -11,6 +11,6 @@ cat >> /etc/hosts <<EOL
 
 # vagrant env nodes
 10.10.32.10 mgmt
-10.10.64.1  web1
+10.10.32.21  web1
 EOL
 

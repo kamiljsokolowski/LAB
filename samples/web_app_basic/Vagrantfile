@@ -20,7 +20,7 @@ Vagrant.configure(2) do |config|
              vb.memory = nodes["mem"]
           end
           if nodes["script"]
-            node.vm.provision "shell", path: nodes["script"]
+            node.vm.provision "shell", path: nodes["script"], privileged: false
           end
       end
   end

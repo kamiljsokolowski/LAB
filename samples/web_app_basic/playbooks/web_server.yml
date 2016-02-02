@@ -1,0 +1,38 @@
+---
+- hosts: web
+  sudo: yes
+  gather_facts: no
+
+  tasks:
+
+  - name: get app requirements
+    apt: name={{ item }} state=installed update_cache=yes
+    with_items:
+        - python
+        - python-pip
+        - python-virtualenv
+        - nginx
+        - gunicorn
+        - supervisor
+        - git
+
+  - name: create project dir
+    file: path=/home/www state=directory mode=0755
+    tags:
+        - flask
+
+  - name: create virtualenv
+    command: /usr/bin/virtualenv /home/www/env
+    tags:
+        - flask
+
+  - name: install Flask
+    command: /home/www/env/bin/pip install Flask
+    tags:
+        - flask
+  
+  - name: link app directory
+    file: src=/vagrant/flask_project dest=/home/www/flask_project state=link
+    tags:
+        - flask
+

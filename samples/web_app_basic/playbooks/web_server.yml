@@ -36,3 +36,25 @@
     tags:
         - flask
 
+  - name: remove the default nginx config file
+    file: path=/etc/nginx/sites-enabled/default state=absent
+    tags:
+        - nginx
+
+  - name: create a new nginx config file
+    template: src=/vagrant/config/flask_project dest=/etc/nginx/sites-available/flask-project
+    tags:
+        - nginx
+
+  - name: symlink the new config file
+    file: src=/etc/nginx/sites-available/flask-project dest=/etc/nginx/sites-enabled/flask-project state=link
+    notify: restart nginx
+    tags:
+        - nginx
+
+
+  handlers:
+
+  - name: restart nginx
+    service: name=nginx state=restarted
+

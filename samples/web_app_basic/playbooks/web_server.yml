@@ -58,6 +58,10 @@
     tags:
         - nginx
 
+  - name: create a new supervisor config file
+    template: src=/vagrant/config/flask_project.conf dest=/etc/supervisor/conf.d/flask_project.conf
+    tags:
+        - supervisor
 
   handlers:
 

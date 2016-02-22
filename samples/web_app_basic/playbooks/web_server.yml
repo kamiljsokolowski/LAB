@@ -63,6 +63,17 @@
     tags:
         - supervisor
 
+  - name: create a bare repo dir
+    file: path=/home/git state=directory mode=0755
+    tags:
+        - repo
+
+  - name: init a bare Git repo
+    command: git init --bare /home/git/flask_project.git
+    tags:
+        - repo
+
+
   handlers:
 
   - name: restart nginx

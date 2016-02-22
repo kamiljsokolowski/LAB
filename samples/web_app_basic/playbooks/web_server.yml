@@ -73,6 +73,11 @@
     tags:
         - repo
 
+  - name: create a post-receive hook
+    template: src=/vagrant/config/post-receive dest=/home/git/flask_project.git/hooks/post-receive mode=0755
+    tags:
+        - repo
+
 
   handlers:
 

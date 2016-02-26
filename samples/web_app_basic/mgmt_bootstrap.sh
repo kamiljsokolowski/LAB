@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# install Fabric
+sudo apt-get update -q && sudo apt-get install -y \
+    python-setuptools \
+ && sudo easy_install pip \
+ && sudo pip install \
+    fabric \
+    pyyaml
+
 # add official Ansible repo & install Ansible
 sudo apt-add-repository -y ppa:ansible/ansible
 sudo apt-get update -q && sudo apt-get install -y \

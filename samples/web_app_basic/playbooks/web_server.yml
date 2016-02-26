@@ -27,13 +27,13 @@
         - flask
 
   - name: add virtualenv libs location to $PYTHONPATH
-  #lineinfile: dest=/home/vagrant/.profile line="PYTHONPATH=$PYTHONPATH:/home/www/env/lib/python2.7/site-packages" state=present
+    #lineinfile: dest=/home/vagrant/.profile line="PYTHONPATH=$PYTHONPATH:/home/www/env/lib/python2.7/site-packages" state=present
     lineinfile: dest=/etc/environment line="PYTHONPATH=$PYTHONPATH:/home/www/env/lib/python2.7/site-packages" state=present
     tags:
         - flask
 
   - name: install Flask
-    command: /home/www/env/bin/pip install Flask
+    command: /home/www/env/bin/pip install -r /vagrant/requirements.txt
     tags:
         - flask
   

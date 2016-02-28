@@ -37,8 +37,8 @@
     tags:
         - flask
   
-  - name: link app directory
-    file: src=/vagrant/flask_project dest=/home/www/flask_project state=link
+  - name: create app directory
+    file: path=/home/www/flask_project state=directory mode=0755
     tags:
         - flask
 
@@ -85,12 +85,6 @@
 
   - name: init a working copy Git repo
     command: git init /home/www/flask_project/
-    tags:
-        - repo
-
-  - name: add a production remote to working copy repo
-    #git: repo=root@10.10.32.21:/home/git/flask_project.git dest=/home/www/flask_project remote=production accept_hostkey=yes
-    command: git remote add production vagrant@10.10.32.21:/home/git/flask_project.git chdir=/home/www/flask_project
     tags:
         - repo
 

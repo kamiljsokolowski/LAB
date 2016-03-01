@@ -5,47 +5,6 @@
 
   tasks:
 
-  - name: create project dir
-    file: path=/home/www state=directory mode=0755
-    tags:
-        - flask
-
-  - name: create virtualenv
-    command: /usr/bin/virtualenv /home/www/env
-    tags:
-        - flask
-
-  - name: add virtualenv libs location to $PYTHONPATH
-    #lineinfile: dest=/home/vagrant/.profile line="PYTHONPATH=$PYTHONPATH:/home/www/env/lib/python2.7/site-packages" state=present
-    lineinfile: dest=/etc/environment line="PYTHONPATH=$PYTHONPATH:/home/www/env/lib/python2.7/site-packages" state=present
-    tags:
-        - flask
-
-  - name: install Flask
-    command: /home/www/env/bin/pip install -r /vagrant/requirements.txt
-    tags:
-        - flask
-  
-  - name: create app directory
-    file: path=/home/www/flask_project state=directory mode=0755
-    tags:
-        - flask
-
-  - name: remove the default nginx config file
-    file: path=/etc/nginx/sites-enabled/default state=absent
-    tags:
-        - nginx
-
-  - name: create a new nginx config file
-    template: src=/vagrant/config/flask_project dest=/etc/nginx/sites-available/flask-project
-    tags:
-        - nginx
-
-  - name: symlink the new config file
-    file: src=/etc/nginx/sites-available/flask-project dest=/etc/nginx/sites-enabled/flask-project state=link
-    notify: restart nginx
-    tags:
-        - nginx
 
   - name: create a new supervisor config file
     template: src=/vagrant/config/flask_project.conf dest=/etc/supervisor/conf.d/flask_project.conf
@@ -76,10 +35,3 @@
     command: git init /home/www/flask_project/
     tags:
         - repo
-
-
-  handlers:
-
-  - name: restart nginx
-    service: name=nginx state=restarted
-

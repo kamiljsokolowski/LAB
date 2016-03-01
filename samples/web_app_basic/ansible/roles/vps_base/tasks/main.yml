@@ -1,0 +1,4 @@
+---
+- name: Get app requirements.
+  apt: name={{ item }} state=installed update_cache=yes
+  with_items: '{{ packages }}'

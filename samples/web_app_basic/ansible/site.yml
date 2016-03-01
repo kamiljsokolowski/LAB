@@ -13,3 +13,4 @@
     - vps_base
     - app
     - vps_webserver
+    - app_wsgi

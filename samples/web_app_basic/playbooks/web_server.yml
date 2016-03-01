@@ -6,11 +6,6 @@
   tasks:
 
 
-  - name: create a new supervisor config file
-    template: src=/vagrant/config/flask_project.conf dest=/etc/supervisor/conf.d/flask_project.conf
-    tags:
-        - supervisor
-
   - name: create a bare repo dir
     file: path=/home/git/flask_project.git state=directory mode=0755
     tags:

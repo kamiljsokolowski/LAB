@@ -1,0 +1,4 @@
+---
+app_dir: /home/www
+flask_dir: '{{ app_dir }}/flask_project'
+virtualenv_dir: '{{ app_dir }}/env'

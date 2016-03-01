@@ -1,0 +1,25 @@
+---
+- name: Create app dir.
+  file: path={{ app_dir }} state=directory owner=vagrant group=vagrant mode=0755
+  tags:
+      - flask
+
+- name: Create Flask dir.
+  file: path={{ flask_dir }} state=directory owner=vagrant group=vagrant mode=0755
+  tags:
+      - flask
+
+- name: Create Flask virtualenv.
+  command: /usr/bin/virtualenv '{{ virtualenv_dir }}'
+  tags:
+      - flask
+
+- name: Add virtualenv to $PYTHONPATH.
+  lineinfile: dest=/etc/environment line="PYTHONPATH=$PYTHONPATH:{{ virtualenv_dir }}/lib/python2.7/site-packages" state=present
+  tags:
+      - flask
+
+- name: Install Flask.
+  command: "{{ virtualenv_dir }}/bin/pip install -r /vagrant/requirements.txt"
+  tags:
+      - flask

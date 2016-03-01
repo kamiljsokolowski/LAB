@@ -12,3 +12,4 @@
   roles:
     - vps_base
     - vps_webserver
+    - app

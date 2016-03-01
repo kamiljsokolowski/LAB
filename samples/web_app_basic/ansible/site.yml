@@ -11,3 +11,4 @@
   gather_facts: no
   roles:
     - vps_base
+    - vps_webserver

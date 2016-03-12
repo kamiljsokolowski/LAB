@@ -1,0 +1,3 @@
+---
+git_dir: /home/git
+bare_repo_dir: '{{ git_dir }}/flask_project.git'

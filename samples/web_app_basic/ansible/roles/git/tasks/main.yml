@@ -1,0 +1,21 @@
+---
+- name: Create a git dir.
+  file: path={{ bare_repo_dir }} state=directory owner=vagrant group=vagrant mode=0755
+  tags:
+      - git
+
+- name: Init a bare git repo.
+  command: git init --bare chdir={{ bare_repo_dir }}
+  tags:
+      - git
+
+- name: Change bare git repo dir credentials.
+  file: path={{ bare_repo_dir }} state=directory owner=vagrant group=vagrant mode=0755 recurse=yes
+  tags:
+      - git
+
+- name: Add a post-receive hook.
+  copy: src=post-receive dest={{ bare_repo_dir }}/hooks/post-receive owner=vagrant group=vagrant mode=0755 backup=yes
+  tags:
+      - git
+

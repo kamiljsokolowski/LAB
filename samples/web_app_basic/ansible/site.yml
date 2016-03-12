@@ -14,3 +14,4 @@
     - flask
     - nginx 
     - supervisor 
+    - git 

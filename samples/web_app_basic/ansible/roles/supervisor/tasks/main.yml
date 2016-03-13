@@ -1,0 +1,7 @@
+---
+- name: Add a new supervisor config.
+  copy: src=flask_project.conf dest=/etc/supervisor/conf.d/flask_project.conf owner=root group=root
+  notify:
+      - Reload supervisor.
+  tags:
+      - supervisor

@@ -1,0 +1,17 @@
+---
+- name: Remove default nginx config.
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  tags:
+      - nginx
+
+- name: Add a new nginx config.
+  copy: src=flask_project dest=/etc/nginx/sites-available/flask-project owner=root group=root 
+  tags:
+      - nginx
+
+- name: Symlink the new config.
+  file: src=/etc/nginx/sites-available/flask-project dest=/etc/nginx/sites-enabled/flask-project state=link owner=root group=root
+  notify:
+      - Restart nginx.
+  tags:
+      - nginx

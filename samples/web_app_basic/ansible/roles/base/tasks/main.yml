@@ -1,0 +1,7 @@
+---
+- name: Perform safe upgrade.
+  apt: upgrade=safe update_cache=yes
+
+- name: Get app requirements.
+  apt: name={{ item }} state=installed update_cache=yes
+  with_items: '{{ packages }}'

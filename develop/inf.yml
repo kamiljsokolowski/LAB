@@ -1,0 +1,18 @@
+---
+- name: mgmt
+  box: ubuntu/trusty64 
+  check_updates: false
+  net: private_network 
+  ip: 10.10.1.16
+  mem: 256
+  script: mgmt_bootstrap.sh
+
+- name: web1
+  box: ubuntu/trusty64 
+  check_updates: false
+  net: private_network 
+  ip: 10.10.1.32
+  forward_host_port: 80
+  forward_guest_port: 13280
+  mem: 256
+

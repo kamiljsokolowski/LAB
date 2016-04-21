@@ -1,0 +1,33 @@
+---
+- name: install SSH key
+  authorized_key: user={{ credentials.login }}
+                  key="{{ lookup('file', '/home/vagrant/.ssh/id_rsa.pub') }}"
+                  state=present
+  tags:
+    - ssh
+
+- name: install packages
+  become: yes
+  become_method: sudo
+  apt: name={{ item }} state=present
+  with_items:
+    - "{{ packages }}"
+  tags:
+    - package_mgmt
+
+- name: add periodic upgrades config
+  become: yes
+  become_method: sudo
+  template: src=10periodic.j2 dest=/etc/apt/apt.conf.d/10periodic owner=root group=root mode=0644 backup=yes
+  tags:
+    - package_mgmt
+
+- name: add unattended upgrades config
+  become: yes
+  become_method: sudo
+  template: src=50unattended-upgrades.j2 dest=/etc/apt/apt.conf.d/50unattended-upgrades owner=root group=root mode=0644 backup=yes
+  notify:
+    - restart unattended upgrades
+  tags:
+    - package_mgmt
+

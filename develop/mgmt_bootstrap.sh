@@ -18,9 +18,9 @@ sudo apt-get update -q && sudo apt-get install -y \
 #sudo cat >> /etc/hosts <<EOL
 sudo tee -a /etc/hosts > /dev/null <<EOL
 
-# vagrant env nodes
-10.10.32.10 mgmt
-10.10.32.21  web1
+# develop nodes
+10.10.1.16 mgmt
+10.10.1.32 web1
 EOL
 
 ### VPS config

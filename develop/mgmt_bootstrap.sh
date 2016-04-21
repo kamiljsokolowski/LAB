@@ -20,6 +20,7 @@ sudo tee -a /etc/hosts > /dev/null <<EOL
 
 # develop nodes
 10.10.1.16 mgmt
+10.10.1.17 mon
 10.10.1.32 web1
 EOL
 

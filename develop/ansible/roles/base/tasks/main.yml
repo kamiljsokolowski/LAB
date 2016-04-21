@@ -6,6 +6,15 @@
   tags:
     - ssh
 
+- name: install packages
+  become: yes
+  become_method: sudo
+  apt: name={{ item }} state=present
+  with_items:
+    - "{{ packages }}"
+  tags:
+    - package_mgmt
+
 - name: add periodic upgrades config
   become: yes
   become_method: sudo

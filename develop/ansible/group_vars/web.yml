@@ -1,0 +1,5 @@
+---
+packages:
+  - ssh
+  - python-dev
+  - python-setuptools

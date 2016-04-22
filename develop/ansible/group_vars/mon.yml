@@ -6,3 +6,6 @@ packages:
   - icinga2
   - postgresql
   - icinga2-ido-pgsql
+icinga2:
+  features:
+    - ido-pgsql

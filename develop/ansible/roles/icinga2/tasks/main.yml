@@ -1,8 +1,10 @@
 ---
-- name: enable Icinga2 database
+- name: enable Icinga2 features
   become: yes
   become_method: sudo
-  shell: /usr/sbin/icinga2 feature enable ido-pgsql
+  shell: /usr/sbin/icinga2 feature enable {{ item }}
+  with_items:
+    - "{{ icinga2.features }}"
   tags:
     - icinga2
   notify:

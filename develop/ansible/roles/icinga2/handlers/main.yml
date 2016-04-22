@@ -1,0 +1,5 @@
+---
+- name: restart Icinga 2
+  become: yes
+  become_method: sudo
+  service: name=icinga2 state=restarted

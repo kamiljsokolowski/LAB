@@ -4,3 +4,5 @@ repos:
 packages:
   - ssh
   - icinga2
+  - postgresql
+  - icinga2-ido-pgsql

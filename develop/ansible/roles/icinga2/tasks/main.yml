@@ -1,0 +1,9 @@
+---
+- name: enable Icinga2 database
+  become: yes
+  become_method: sudo
+  shell: /usr/sbin/icinga2 feature enable ido-pgsql
+  tags:
+    - icinga2
+  notify:
+    - restart Icinga 2

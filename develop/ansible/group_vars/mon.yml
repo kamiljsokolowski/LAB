@@ -8,4 +8,5 @@ packages:
   - icinga2-ido-pgsql
 icinga2:
   features:
+    - command
     - ido-pgsql

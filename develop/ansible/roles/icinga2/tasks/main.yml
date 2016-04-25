@@ -17,17 +17,6 @@
   tags:
     - icinga2
 
-- name: enable Icinga 2 features
-  become: yes
-  become_method: sudo
-  shell: /usr/sbin/icinga2 feature enable {{ item }}
-  with_items:
-    - "{{ icinga2.features }}"
-  tags:
-    - icinga2
-  notify:
-    - restart Icinga 2
-
 - name: install Icinga Web 2 repo key
   become: yes
   become_method: sudo
@@ -52,3 +41,15 @@
     - "{{ icinga_web2.packages }}"
   tags:
     - icinga_web2
+
+- name: enable Icinga 2 features required by Icinga Web 2
+  become: yes
+  become_method: sudo
+  shell: /usr/sbin/icinga2 feature enable {{ item }}
+  with_items:
+    - "{{ icinga_web2.features }}"
+  tags:
+    - icinga_web2
+  notify:
+    - restart Icinga 2
+

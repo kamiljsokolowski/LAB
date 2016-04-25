@@ -4,9 +4,6 @@ icinga2:
     - 'ppa:formorer/icinga'
   packages:
     - icinga2
-  features:
-    - command
-    - ido-pgsql
 
 icinga_web2:
   repos:
@@ -22,4 +19,7 @@ icinga_web2:
     - postgresql
     - icinga2-ido-pgsql
     - icingaweb2
+  features:
+    - command
+    - ido-pgsql
 

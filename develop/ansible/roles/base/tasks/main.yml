@@ -6,21 +6,12 @@
   tags:
     - ssh
 
-- name: add repos
-  become: yes
-  become_method: sudo
-  apt_repository: repo={{ item }} state=present
-  with_items:
-    - "{{ repos }}"
-  tags:
-    - package_mgmt
-
 - name: install packages
   become: yes
   become_method: sudo
   apt: name={{ item }} state=present
   with_items:
-    - "{{ packages }}"
+    - "{{ base.packages }}"
   tags:
     - package_mgmt
 

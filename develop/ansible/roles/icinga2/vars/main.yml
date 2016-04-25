@@ -1,0 +1,25 @@
+---
+icinga2:
+  repos:
+    - 'ppa:formorer/icinga'
+  packages:
+    - postgresql
+    - icinga2
+    - icinga2-ido-pgsql
+  features:
+    - command
+    - ido-pgsql
+
+icinga_web2:
+  repos:
+    - 'deb http://packages.icinga.org/ubuntu icinga-trusty main'
+  packages:
+    - php5-json
+    - php5-gd
+    - php5-imagick
+    - php5-pgsql
+    - php5-intl
+    - php5-cli
+    - php5-common
+    - icingaweb2
+

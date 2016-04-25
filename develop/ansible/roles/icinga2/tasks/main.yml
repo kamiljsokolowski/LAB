@@ -1,5 +1,23 @@
 ---
-- name: enable Icinga2 features
+- name: add Icinga 2 repo
+  become: yes
+  become_method: sudo
+  apt_repository: repo={{ item }} state=present
+  with_items:
+    - "{{ icinga2.repos }}"
+  tags:
+    - icinga2
+
+- name: install Icinga 2
+  become: yes
+  become_method: sudo
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - "{{ icinga2.packages }}"
+  tags:
+    - icinga2
+
+- name: enable Icinga 2 features
   become: yes
   become_method: sudo
   shell: /usr/sbin/icinga2 feature enable {{ item }}
@@ -20,17 +38,17 @@
 - name: add Icinga Web 2 repo
   become: yes
   become_method: sudo
-  apt_repository: repo='deb http://packages.icinga.org/ubuntu icinga-trusty main' state=present
-#  with_items:
-#    - "{{ repos }}"
+  apt_repository: repo={{ item }} state=present
+  with_items:
+    - "{{ icinga_web2.repos }}"
   tags:
     - icinga_web2
 
 - name: install Icinga Web 2
   become: yes
   become_method: sudo
-  apt: name=icingaweb2 state=present update_cache=yes
-#  with_items:
-#    - "{{ packages }}"
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - "{{ icinga_web2.packages }}"
   tags:
     - icinga_web2

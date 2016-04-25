@@ -2,7 +2,6 @@
 repos:
   - ppa:formorer/icinga 
 packages:
-  - ssh
   - icinga2
   - postgresql
   - icinga2-ido-pgsql

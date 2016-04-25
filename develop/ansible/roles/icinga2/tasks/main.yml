@@ -53,3 +53,10 @@
   notify:
     - restart Icinga 2
 
+- name: generate Icinga Web 2 authentication token
+  become: yes
+  become_method: sudo
+  shell: /usr/bin/icingacli setup token create
+  tags:
+    - icinga_web2
+

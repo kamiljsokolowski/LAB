@@ -60,3 +60,9 @@
   tags:
     - icinga_web2
 
+- name: fix missing timezone definition
+  become: yes
+  become_method: sudo
+  lineinfile: dest=/etc/php5/apache2/php.ini state=present regexp='^;date.timezone =' line='date.timezone = "Europe/Warsaw"' backup=yes
+  tags:
+    - icinga_web2

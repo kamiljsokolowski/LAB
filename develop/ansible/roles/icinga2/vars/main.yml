@@ -10,6 +10,9 @@ icinga2:
     flags: SUPERUSER
 
 icinga_web2:
+  credentials:
+    user: www-data
+    group: icingaweb2
   repos:
     - 'deb http://packages.icinga.org/ubuntu icinga-trusty main'
   packages:

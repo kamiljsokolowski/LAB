@@ -53,7 +53,7 @@
 - name: add webserver user to icingaweb2 group
   become: yes
   become_method: sudo
-  user: name=www-data groups=icingaweb2 append=yes
+  user: name={{ icinga_web2.credentials.user }} groups={{ icinga_web2.credentials.group }} append=yes
   tags:
     - icinga_web2
 
@@ -97,3 +97,10 @@
   postgresql_user: name={{ icinga_web2.database.user }}  password={{ icinga_web2.database.password }} role_attr_flags={{ icinga_web2.database.flags }} state=present 
   tags:
     - icinga_web2
+
+- name: change config directory ownership
+  become: yes
+  become_method: sudo
+  file: path=/etc/icingaweb2 state=directory owner={{ icinga_web2.credentials.user }} group={{ icinga_web2.credentials.group }} recurse=yes
+  tags:
+    - tmp

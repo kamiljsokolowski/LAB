@@ -17,6 +17,14 @@
   tags:
     - icinga2
 
+- name: create Icinga 2-dedicated database user
+  become: yes
+  become_user: postgres
+  become_method: sudo
+  postgresql_user: name={{ icinga2.database.user }}  password={{ icinga2.database.password }} role_attr_flags={{ icinga2.database.flags }} state=present 
+  tags:
+    - icinga2
+
 - name: install Icinga Web 2 repo key
   become: yes
   become_method: sudo

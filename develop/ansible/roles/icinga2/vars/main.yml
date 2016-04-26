@@ -4,6 +4,10 @@ icinga2:
     - 'ppa:formorer/icinga'
   packages:
     - icinga2
+  database:
+    user: icinga2
+    password: icinga2
+    flags: SUPERUSER
 
 icinga_web2:
   repos:

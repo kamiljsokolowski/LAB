@@ -81,6 +81,8 @@
   lineinfile: dest=/etc/php5/apache2/php.ini state=present regexp='^;date.timezone =' line='date.timezone = "Europe/Warsaw"' backup=yes
   tags:
     - icinga_web2
+  notify:
+    - restart Apache
 
 - name: set database admin password
   become: yes
@@ -101,6 +103,6 @@
 - name: change config directory ownership
   become: yes
   become_method: sudo
-  file: path=/etc/icingaweb2 state=directory owner={{ icinga_web2.credentials.user }} group={{ icinga_web2.credentials.group }} recurse=yes
+  file: path=/etc/icingaweb2 state=directory group={{ icinga_web2.credentials.user }}group={{ icinga_web2.credentials.group }} recurse=yes
   tags:
-    - tmp
+    - icinga_web2

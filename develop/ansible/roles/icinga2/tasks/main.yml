@@ -42,6 +42,13 @@
   tags:
     - icinga_web2
 
+- name: add webserver user to icingaweb2 group
+  become: yes
+  become_method: sudo
+  user: name=www-data groups=icingaweb2 append=yes
+  tags:
+    - icinga_web2
+
 - name: enable Icinga 2 features required by Icinga Web 2
   become: yes
   become_method: sudo

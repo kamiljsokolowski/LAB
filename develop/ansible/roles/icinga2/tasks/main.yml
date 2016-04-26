@@ -73,3 +73,19 @@
   lineinfile: dest=/etc/php5/apache2/php.ini state=present regexp='^;date.timezone =' line='date.timezone = "Europe/Warsaw"' backup=yes
   tags:
     - icinga_web2
+
+- name: set database admin password
+  become: yes
+  become_user: postgres
+  become_method: sudo
+  postgresql_user: name={{ icinga_web2.database.admin_user }}  password={{ icinga_web2.database.admin_password }} state=present 
+  tags:
+    - icinga_web2
+
+- name: create Icinga Web 2-dedicated database user
+  become: yes
+  become_user: postgres
+  become_method: sudo
+  postgresql_user: name={{ icinga_web2.database.user }}  password={{ icinga_web2.database.password }} role_attr_flags={{ icinga_web2.database.flags }} state=present 
+  tags:
+    - icinga_web2

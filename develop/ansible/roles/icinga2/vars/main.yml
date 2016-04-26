@@ -17,9 +17,16 @@ icinga_web2:
     - php5-cli
     - php5-common
     - postgresql
+    - python-psycopg2
     - icinga2-ido-pgsql
     - icingaweb2
   features:
     - command
     - ido-pgsql
+  database:
+    admin_user: postgres
+    admin_password: postgres
+    user: icingaweb2
+    password: icingaweb2
+    flags: SUPERUSER
 

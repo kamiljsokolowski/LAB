@@ -6,7 +6,6 @@ nodes = YAML.load_file('inf.yml')
 
 Vagrant.configure(2) do |config|
 
-  # mgmt
   nodes.each do |nodes|
       config.vm.define nodes["name"] do |node|
           node.vm.box = nodes["box"]
@@ -25,5 +24,17 @@ Vagrant.configure(2) do |config|
       end
   end
 
+  # mon (Icinga Web 2 requires a second port to be forwarded.. looping over sets is not implemented atm)
+  config.vm.define "mon" do |node|
+      node.vm.box = "ubuntu/trusty64i"
+      node.vm.hostname = "mon"
+      node.vm.box_check_update = false
+      node.vm.network "private_network", ip: "10.10.1.17"
+      node.vm.network "forwarded_port", guest: 80, host: 11780
+      node.vm.network "forwarded_port", guest: 5432, host: 5432
+      node.vm.provider "virtualbox" do |vb|
+         vb.memory = "256"
+      end
+  end
 end
 

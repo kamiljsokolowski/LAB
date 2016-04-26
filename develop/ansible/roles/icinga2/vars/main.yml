@@ -3,14 +3,16 @@ icinga2:
   repos:
     - 'ppa:formorer/icinga'
   packages:
-    - postgresql
     - icinga2
-    - icinga2-ido-pgsql
-  features:
-    - command
-    - ido-pgsql
+  database:
+    user: icinga2
+    password: icinga2
+    flags: SUPERUSER
 
 icinga_web2:
+  credentials:
+    user: www-data
+    group: icingaweb2
   repos:
     - 'deb http://packages.icinga.org/ubuntu icinga-trusty main'
   packages:
@@ -21,5 +23,17 @@ icinga_web2:
     - php5-intl
     - php5-cli
     - php5-common
+    - postgresql
+    - python-psycopg2
+    - icinga2-ido-pgsql
     - icingaweb2
+  features:
+    - command
+    - ido-pgsql
+  database:
+    admin_user: postgres
+    admin_password: postgres
+    user: icingaweb2
+    password: icingaweb2
+    flags: SUPERUSER
 

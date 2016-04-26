@@ -7,14 +7,14 @@
   mem: 256
   script: mgmt_bootstrap.sh
 
-- name: mon
-  box: ubuntu/trusty64 
-  check_updates: false
-  net: private_network 
-  ip: 10.10.1.17
-  forward_host_port: 80
-  forward_guest_port: 11780
-  mem: 256
+#- name: mon
+#  box: ubuntu/trusty64 
+#  check_updates: false
+#  net: private_network 
+#  ip: 10.10.1.17
+#  forward_host_port: 80
+#  forward_guest_port: 11780
+#  mem: 256
 
 - name: web1
   box: ubuntu/trusty64 

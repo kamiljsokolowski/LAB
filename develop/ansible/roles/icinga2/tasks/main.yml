@@ -17,16 +17,13 @@
   tags:
     - icinga2
 
-- name: enable Icinga 2 features
+- name: create Icinga 2-dedicated database user
   become: yes
+  become_user: postgres
   become_method: sudo
-  shell: /usr/sbin/icinga2 feature enable {{ item }}
-  with_items:
-    - "{{ icinga2.features }}"
+  postgresql_user: name={{ icinga2.database.user }}  password={{ icinga2.database.password }} role_attr_flags={{ icinga2.database.flags }} state=present 
   tags:
     - icinga2
-  notify:
-    - restart Icinga 2
 
 - name: install Icinga Web 2 repo key
   become: yes
@@ -50,5 +47,62 @@
   apt: name={{ item }} state=present update_cache=yes
   with_items:
     - "{{ icinga_web2.packages }}"
+  tags:
+    - icinga_web2
+
+- name: add webserver user to icingaweb2 group
+  become: yes
+  become_method: sudo
+  user: name={{ icinga_web2.credentials.user }} groups={{ icinga_web2.credentials.group }} append=yes
+  tags:
+    - icinga_web2
+
+- name: enable Icinga 2 features required by Icinga Web 2
+  become: yes
+  become_method: sudo
+  shell: /usr/sbin/icinga2 feature enable {{ item }}
+  with_items:
+    - "{{ icinga_web2.features }}"
+  tags:
+    - icinga_web2
+  notify:
+    - restart Icinga 2
+
+- name: generate Icinga Web 2 authentication token
+  become: yes
+  become_method: sudo
+  shell: /usr/bin/icingacli setup token create
+  tags:
+    - icinga_web2
+
+- name: fix missing timezone definition
+  become: yes
+  become_method: sudo
+  lineinfile: dest=/etc/php5/apache2/php.ini state=present regexp='^;date.timezone =' line='date.timezone = "Europe/Warsaw"' backup=yes
+  tags:
+    - icinga_web2
+  notify:
+    - restart Apache
+
+- name: set database admin password
+  become: yes
+  become_user: postgres
+  become_method: sudo
+  postgresql_user: name={{ icinga_web2.database.admin_user }}  password={{ icinga_web2.database.admin_password }} state=present 
+  tags:
+    - icinga_web2
+
+- name: create Icinga Web 2-dedicated database user
+  become: yes
+  become_user: postgres
+  become_method: sudo
+  postgresql_user: name={{ icinga_web2.database.user }}  password={{ icinga_web2.database.password }} role_attr_flags={{ icinga_web2.database.flags }} state=present 
+  tags:
+    - icinga_web2
+
+- name: change config directory ownership
+  become: yes
+  become_method: sudo
+  file: path=/etc/icingaweb2 state=directory group={{ icinga_web2.credentials.user }}group={{ icinga_web2.credentials.group }} recurse=yes
   tags:
     - icinga_web2
